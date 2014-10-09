@@ -5,24 +5,95 @@
  */
 
 public class Main : SEScene
-{
+{   
+         SESprite sprite1;
+        SESprite sprite2;
+        SESprite sprite3;
+        SESprite sprite4;
+        
+        SESprite bg;
+        SESprite text;
+        double transparency = 0;
+   public void initialize (SEResourceCache rsc)
+   { 
+        base.initialize(rsc);
+        bg = add_sprite_for_color (Color.instance("red") , get_scene_width(), get_scene_height() ); 
+        bg.move(0,0);
+        rsc.prepare_image("iwachan", "iwaizumi", get_scene_width()*0.2);
+        rsc.prepare_image("asskawa", "oikawa", get_scene_width()*0.2);
+        rsc.prepare_image("hina", "hinata", get_scene_width()*0.2);
+        rsc.prepare_image("kags", "kage", get_scene_width()*0.2);
+       
+        sprite1 = add_sprite_for_image(SEImage.for_resource("iwachan"));
+        sprite1.move(0,0);
+        sprite2 = add_sprite_for_image(SEImage.for_resource("asskawa"));
+        sprite2.move(1000,50);
+        sprite3 = add_sprite_for_image(SEImage.for_resource("hina"));
+        sprite3.move(1500,400);
+        sprite4 = add_sprite_for_image(SEImage.for_resource("kags"));
+        sprite4.move(450,500);
+        rsc.prepare_font("myfont", "arial color=black" , 40);
+        text = add_sprite_for_text("HAIKYUU QUEST!", "myfont");
+        text.move(800,0);
+        
+     }
 
-	SESprite sprite1;
-	SESprite sprite2;
-	SESprite sprite3;
-	
-	public void initialize(SEResourceCache rsc) {
-		base.initialize(rsc);
-		rsc.prepare_image("tsukkigarasu","tsukki",get_scene_width()*0.5);
-		sprite1 = add_sprite_for_image(SEImage.for_resource("tsukkigarasu"));
-		sprite1.move(0,0);
-		
-		rsc.prepare_image("tsukkigarasu2","tsukki",get_scene_width()*0.5);
-		sprite2 = add_sprite_for_image(SEImage.for_resource("tsukkigarasu2"));
-		sprite2.move(get_scene_width()*0.5,get_scene_height()*0.5);
-		
-		rsc.prepare_font("myfont","arial bold color=red",40);
-		sprite3 = add_sprite_for_text("MONSTERS",""myfont");
-		sprite3.move(0,0);
+        public void on_key_press(String name, String str) {
+	      base.on_key_press(name, str);
+	      text.set_text("HAIKYUU");
 	}
+	public void on_key_release(String name, String str) {
+	      base.on_key_release(name, str);
+	      text.set_text("QUEST!");
+		
+}
+      public void on_pointer_press(SEPointerInfo pi) {
+            base.on_pointer_press(pi);
+            if(pi.is_inside(0,0,0.5*get_scene_width(), 0.5*get_scene_height())) {
+                sprite1.set_alpha(0.5);
+                
+              sprite4.set_alpha(1);
+               sprite2.set_alpha(1);
+              sprite3.set_alpha(1);
+                text.set_text("Iwa-chan");
+                text.move(0.25 * get_scene_width()-text.get_width()*0.5, 0.25 * get_scene_height()-text.get_height()*0.5);
+            }
+            else if(pi.is_inside(0,get_scene_height()*0.5, 0.5*get_scene_width(), 0.5*get_scene_height())) {
+               sprite1.set_alpha(1);
+               
+              sprite4.set_alpha(0.5);
+               sprite2.set_alpha(1);
+               sprite3.set_alpha(1);
+                text.set_text("Dumbass");
+                text.move(0.15 * get_scene_width(), 0.75*get_scene_height());
+            }
+            else if(pi.is_inside(get_scene_width()*0.5,0, 0.5*get_scene_width(), 0.5*get_scene_height())) {
+               sprite1.set_alpha(1);
+               sprite4.set_alpha(1);
+               sprite2.set_alpha(0.5);
+              sprite3.set_alpha(1);
+                text.set_text("Trash");
+                text.move(0.5 * get_scene_width(), 0.25*get_scene_height());
+            }
+            else if(pi.is_inside(get_scene_width()*0.5,get_scene_height()*0.5, 0.5*get_scene_width(), 0.5*get_scene_height())) {
+               sprite1.set_alpha(1);
+               sprite4.set_alpha(1);
+               sprite2.set_alpha(1);
+               sprite3.set_alpha(0.5);
+                text.set_text("Dumbass #2");
+                text.move(0.70 * get_scene_width(), 0.75*get_scene_height());
+            }
+            
+        }
+        public void set_alpha(double alpha) {
+            transparency=alpha;
+        }
+        public void cleanup() {
+            base.cleanup();
+            SESprite.remove(sprite1);
+            SESprite.remove(sprite2);
+            SESprite.remove(sprite3);
+            SESprite.remove(sprite4);
+            
+        }
 }
