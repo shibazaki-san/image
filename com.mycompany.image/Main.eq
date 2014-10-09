@@ -32,7 +32,7 @@ public class Main : SEScene
         sprite3.move(1500,400);
         sprite4 = add_sprite_for_image(SEImage.for_resource("kags"));
         sprite4.move(450,500);
-        rsc.prepare_font("myfont", "arial color=black" , 40);
+        rsc.prepare_font("myfont", "arial color=white" , 40);
         text = add_sprite_for_text("HAIKYUU QUEST!", "myfont");
         text.move(800,0);
         
